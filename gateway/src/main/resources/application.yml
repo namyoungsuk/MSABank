@@ -1,0 +1,58 @@
+server:
+  port: 8088
+
+---
+
+spring:
+  profiles: default
+  cloud:
+    gateway:
+      routes:
+        - id: account
+          uri: http://localhost:8081
+          predicates:
+            - Path=/accounts/** 
+        - id: tansaction
+          uri: http://localhost:8082
+          predicates:
+            - Path=/ledgers/** 
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+
+---
+
+spring:
+  profiles: docker
+  cloud:
+    gateway:
+      routes:
+        - id: account
+          uri: http://account:8080
+          predicates:
+            - Path=/accounts/** 
+        - id: tansaction
+          uri: http://tansaction:8080
+          predicates:
+            - Path=/ledgers/** 
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins:
+              - "*"
+            allowedMethods:
+              - "*"
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+
+server:
+  port: 8080

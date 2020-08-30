@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tansaction
+  labels:
+    app: tansaction
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+  selector:
+    app: tansaction
